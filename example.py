@@ -28,7 +28,7 @@ print()
 # Multicollinearity
 print('Multicolinearity exploration')
 N = 100
-indep_fac = 0.5
+indep_fac = 0.6
 x1 = np.random.randn(N)
 x2 = np.random.randn(N)
 x3 = x1 + x2 + indep_fac * np.random.randn(N)
@@ -82,6 +82,6 @@ p2v = np.array(p2v)
 VIFv = np.array(VIFv)
 posrate1 = np.count_nonzero(p1v < 0.05) / len(p1v)
 posrate2 = np.count_nonzero(p2v < 0.05) / len(p2v)
-print('False positive rate for x2 when sole predictor: ' + str(np.around(posrate1, 3)))
-print('False positive rate for x2 when in model with x1 and x3: ' + str(np.around(posrate2, 3)))
+print('Significance rate for x2 when sole predictor: ' + str(np.around(posrate1, 3)))
+print('Significance positive rate for x2 when in model with x1 and x3: ' + str(np.around(posrate2, 3)))
 print('Mean variance inflation factor was ' + str(np.around(np.mean(VIFv), 3)))
