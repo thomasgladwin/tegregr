@@ -97,16 +97,14 @@ def teg_report_regr(Res):
     print('Offset = ' + str(np.around(Res['b'][-1], 3)))
 
 def create_correlated_variable(X, r):
-    N = len(X)
+    if len(np.shape(X)) == 1:
+        X = np.reshape(X, (len(X), 1))
+    N, k = np.shape(X)
     Y_init = np.random.randn(N)
-    
-    slope, intercept, r_value, p_value, std_err = stats.linregress(X, Y_init)
-    
-    Y_pred = intercept + slope * X
+    Res = teg_regression(X, Y_init)
+    Y_pred = np.matmul(np.hstack([X, np.ones((N, 1))]), Res['b'])
     Y_resid = Y_init - Y_pred
-
     Y_pred = stats.zscore(Y_pred)
     Y_resid = stats.zscore(Y_resid)
-    
     Y_correlated = r * Y_pred + np.sqrt(1 - r**2) * Y_resid
     return Y_correlated
