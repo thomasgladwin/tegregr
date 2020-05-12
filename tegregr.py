@@ -61,6 +61,8 @@ def teg_regression(X, y, baseline_X = []):
     # baseline_X is an optional baseline model
     #
     # X and baseline_X should not include a ones column.
+    if len(np.shape(X)) == 1:
+        X = np.reshape(X, (len(X), 1))
     if len(baseline_X) > 0:
         X = np.hstack([X, baseline_X])
     N, k = np.shape(X)
@@ -93,3 +95,18 @@ def teg_report_regr(Res):
     for ik in range(len(Res['b']) - 1):
         print('b[' + str(ik) + '] = ' + str(np.around(Res['b'][ik], 3)) + ', t(' + str(np.around(Res['df_t'], 3)) + ') = ' + str(np.around(Res['t'][ik], 3)) + ', p = ' + str(np.around(Res['t_p'][ik], 3)))
     print('Offset = ' + str(np.around(Res['b'][-1], 3)))
+
+def create_correlated_variable(X, r):
+    N = len(X)
+    Y_init = np.random.randn(N)
+    
+    slope, intercept, r_value, p_value, std_err = stats.linregress(X, Y_init)
+    
+    Y_pred = intercept + slope * X
+    Y_resid = Y_init - Y_pred
+
+    Y_pred = stats.zscore(Y_pred)
+    Y_resid = stats.zscore(Y_resid)
+    
+    Y_correlated = r * Y_pred + np.sqrt(1 - r**2) * Y_resid
+    return Y_correlated
