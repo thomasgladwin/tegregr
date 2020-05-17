@@ -5,4 +5,5 @@ The function teg_regression provides the overall model F-test and t-tests per co
 
 See example.py for usage.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3822625.svg)](https://doi.org/10.5281/zenodo.3822625)
+[![DOI](https://zenodo.org/badge/263424326.svg)](https://zenodo.org/badge/latestdoi/263424326)
+
